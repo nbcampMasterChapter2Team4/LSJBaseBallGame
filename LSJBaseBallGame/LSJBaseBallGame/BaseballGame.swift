@@ -86,7 +86,6 @@ class BaseballGame {
                 numbers.append(randomNumber)
             }
         }
-        answer = numbers.map { String($0) }
         return numbers.map { String($0) }
     }
 
