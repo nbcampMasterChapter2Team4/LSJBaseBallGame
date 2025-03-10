@@ -43,7 +43,7 @@ class BaseballGame {
     }
 
     private func gameStart() {
-        answer = makeAnser()
+        answer = makeAnswer()
         print(MessageConstants.startMessage)
         var tryCount = 0
         isAnswer = false
@@ -52,10 +52,10 @@ class BaseballGame {
             let input = readLine()!.map { String($0) }
 
             if checkError(for: input) {
+                print(MessageConstants.incorrectInputMessage)
+            } else {
                 tryCount += 1
                 print("\(checkHint(for: input, to: tryCount))\n")
-            } else {
-                print(MessageConstants.incorrectInputMessage)
             }
         }
     }
@@ -73,7 +73,7 @@ class BaseballGame {
 
     // Lv1: 1에서 9까지의 서로 다른 임의의 수 3자리 구하기
     // Lv3: 0에서 9까지로 변경, 맨 앞자리, 중복 제외
-    private func makeAnser() -> [String] {
+    private func makeAnswer() -> [String] {
 
         var numbers = [Int]()
 
@@ -95,19 +95,19 @@ class BaseballGame {
         // 세자리 숫자가 아닌 경우
         let str = input.joined()
         if !str.allSatisfy({ $0.isNumber }) {
-            return false
+            return true
         }
 
         // 숫자가 중복되어 있는 경우
         let arrayToSet: Set<Int> = Set(input.map { Int($0)! })
         if arrayToSet.count != maxLength {
-            return false
+            return true
         }
         // 0이 사용된 경우
         if input.contains("0") {
-            return false
+            return true
         }
-        return true
+        return false
     }
 
     // Lv2: 정답 확인을 위한 힌트
