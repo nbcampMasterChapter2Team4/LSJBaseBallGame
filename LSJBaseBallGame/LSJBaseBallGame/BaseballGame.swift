@@ -11,18 +11,45 @@ class BaseballGame {
 
     let maxLength: Int
     var isAnswer: Bool
+    var isQuit: Bool
     var answer: [String]
 
     init() {
         maxLength = 3
         isAnswer = false
         answer = []
+        isQuit = false
     }
 
+    enum numType: Int {
+        case gameStart = 1
+        case history = 2
+        case quit = 3
+    }
+    
     func start() {
+        while !isQuit {
+            // Lv4: 프로그램 시작시 안내문구 출력
+            print(MessageConstants.welcomMessage)
+            let input = Int(readLine()!)!
+            switch input {
+            case numType.gameStart.rawValue:
+                gameStart()
+            case numType.history.rawValue:
+                continue
+            case numType.quit.rawValue:
+                quit()
+            default:
+                print(MessageConstants.incorrectNumberMessage)
+            }
+        }
+
+    }
+    
+    private func gameStart() {
         answer = makeAnser()
         print(MessageConstants.startMessage)
-
+        
         while !isAnswer {
             print(MessageConstants.inputNumberMessage)
             let input = readLine()!.map { String($0) }
@@ -33,6 +60,15 @@ class BaseballGame {
                 print(MessageConstants.incorrectInputMessage)
             }
         }
+    }
+    
+    private func showHistory() {
+        
+    }
+    
+    private func quit() {
+        isQuit = true
+        print(MessageConstants.finishGameMessage)
     }
 
     // Lv1: 1에서 9까지의 서로 다른 임의의 수 3자리 구하기
