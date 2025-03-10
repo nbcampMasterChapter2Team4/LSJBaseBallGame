@@ -9,12 +9,11 @@ import Foundation
 
 class BaseballGame {
 
-    static let shared = BaseballGame()
     let maxLength: Int
     var isAnswer: Bool
     var answer: [String]
 
-    private init() {
+    init() {
         maxLength = 3
         isAnswer = false
         answer = []
@@ -22,16 +21,29 @@ class BaseballGame {
 
     func start() {
         answer = makeAnser()
+        print(MessageConstants.startMessage)
+
+        while !isAnswer {
+            print(MessageConstants.inputNumberMessage)
+            let input = readLine()!.map { String($0) }
+
+            if checkError(for: input) {
+                print("\(checkHint(for: input))\n")
+            } else {
+                print(MessageConstants.incorrectInputMessage)
+            }
+        }
     }
 
     // Lv1: 1에서 9까지의 서로 다른 임의의 수 3자리 구하기
+    // Lv3: 0에서 9까지로 변경, 맨 앞자리, 중복 제외
     private func makeAnser() -> [String] {
 
         var numbers = [Int]()
 
         while numbers.count < maxLength {
             // 1에서 9까지 랜덤 수 추출
-            let randomNumber = Int.random(in: 1...9)
+            let randomNumber = numbers.isEmpty ? Int.random(in: 1...9) : Int.random(in: 0...9)
 
             // 중복인 경우 추가 안함
             if !numbers.contains(randomNumber) {
@@ -44,7 +56,7 @@ class BaseballGame {
 
     // Lv2: 올바르지 않은 입력값 체크
     func checkError(for input: [String]) -> Bool {
-        
+
         // 세자리 숫자가 아닌 경우
         let str = input.joined()
         if !str.allSatisfy({ $0.isNumber }) {
@@ -62,13 +74,13 @@ class BaseballGame {
         }
         return true
     }
-    
+
     // Lv2: 정답 확인을 위한 힌트
     func checkHint(for input: [String]) -> String {
-        
+
         var hint = Hint()
         var result = ""
-        
+
         for i in 0 ..< maxLength {
             // 스트라이크, 볼 판별기
             if answer.contains(input[i]) {
@@ -79,14 +91,14 @@ class BaseballGame {
                 }
             }
         }
-        
+
         if hint.strikes == 3 {
             isAnswer = true
             return MessageConstants.correctAnswerMessage
         }
-        
-        
-        
+
+
+
         if hint.strikes == 0 && hint.balls == 0 {
             return MessageConstants.nothingMessage
         } else {
