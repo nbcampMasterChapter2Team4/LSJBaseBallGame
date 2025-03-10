@@ -11,6 +11,8 @@
 		8692318C2D7EAEF600732D23 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869231892D7EAEF600732D23 /* main.swift */; };
 		8692318F2D7EAF0100732D23 /* Hint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8692318E2D7EAF0100732D23 /* Hint.swift */; };
 		869231922D7EAFDC00732D23 /* MessageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869231912D7EAFDC00732D23 /* MessageConstants.swift */; };
+		8692319E2D7EBD9200732D23 /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8692319D2D7EBD9200732D23 /* RecordManager.swift */; };
+		869231A02D7EC2AF00732D23 /* NumberType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8692319F2D7EC2AF00732D23 /* NumberType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +33,8 @@
 		869231892D7EAEF600732D23 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		8692318E2D7EAF0100732D23 /* Hint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hint.swift; sourceTree = "<group>"; };
 		869231912D7EAFDC00732D23 /* MessageConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageConstants.swift; sourceTree = "<group>"; };
+		8692319D2D7EBD9200732D23 /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
+		8692319F2D7EC2AF00732D23 /* NumberType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,7 @@
 				869231902D7EAFCA00732D23 /* Contants */,
 				8692318D2D7EAEF900732D23 /* Data */,
 				869231882D7EAEF600732D23 /* BaseballGame.swift */,
+				8692319D2D7EBD9200732D23 /* RecordManager.swift */,
 				869231892D7EAEF600732D23 /* main.swift */,
 			);
 			path = LSJBaseBallGame;
@@ -75,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				8692318E2D7EAF0100732D23 /* Hint.swift */,
+				8692319F2D7EC2AF00732D23 /* NumberType.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -151,6 +157,8 @@
 				8692318F2D7EAF0100732D23 /* Hint.swift in Sources */,
 				8692318B2D7EAEF600732D23 /* BaseballGame.swift in Sources */,
 				8692318C2D7EAEF600732D23 /* main.swift in Sources */,
+				8692319E2D7EBD9200732D23 /* RecordManager.swift in Sources */,
+				869231A02D7EC2AF00732D23 /* NumberType.swift in Sources */,
 				869231922D7EAFDC00732D23 /* MessageConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
