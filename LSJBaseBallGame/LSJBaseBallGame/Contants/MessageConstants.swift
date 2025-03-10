@@ -16,4 +16,7 @@ enum MessageConstants {
     static let nothingMessage = "Nothing"
     static let finishGameMessage = "\n< 숫자 야구 게임을 종료합니다 >"
     static let incorrectNumberMessage = "\n올바른 숫자를 입력해주세요!"
+    static let showHistoryMessage = "\n< 게임 기록 보기 > "
+    static let emtpyHistoryMessage = "게임을 진행한 기록이 없습니다!"
+    static let lineSpace = "\n"
 }

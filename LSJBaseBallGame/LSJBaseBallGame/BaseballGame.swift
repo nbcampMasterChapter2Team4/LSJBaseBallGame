@@ -13,31 +13,29 @@ class BaseballGame {
     var isAnswer: Bool
     var isQuit: Bool
     var answer: [String]
+    let recordManager: RecordManager
 
     init() {
         maxLength = 3
         isAnswer = false
         answer = []
         isQuit = false
+        recordManager = RecordManager.shared
     }
 
-    enum numType: Int {
-        case gameStart = 1
-        case history = 2
-        case quit = 3
-    }
-    
+
+
     func start() {
         while !isQuit {
             // Lv4: 프로그램 시작시 안내문구 출력
             print(MessageConstants.welcomMessage)
             let input = Int(readLine()!)!
             switch input {
-            case numType.gameStart.rawValue:
+            case NumberType.gameStart.rawValue:
                 gameStart()
-            case numType.history.rawValue:
-                continue
-            case numType.quit.rawValue:
+            case NumberType.history.rawValue:
+                showHistory()
+            case NumberType.quit.rawValue:
                 quit()
             default:
                 print(MessageConstants.incorrectNumberMessage)
@@ -45,27 +43,31 @@ class BaseballGame {
         }
 
     }
-    
+
     private func gameStart() {
         answer = makeAnser()
         print(MessageConstants.startMessage)
-        
+        var tryCount = 0
+        isAnswer = false
         while !isAnswer {
             print(MessageConstants.inputNumberMessage)
             let input = readLine()!.map { String($0) }
 
             if checkError(for: input) {
-                print("\(checkHint(for: input))\n")
+                tryCount += 1
+                print("\(checkHint(for: input, to: tryCount))\n")
             } else {
                 print(MessageConstants.incorrectInputMessage)
             }
         }
     }
-    
+
+    // Lv5: 기록보기
     private func showHistory() {
-        
+        recordManager.showHistory()
     }
-    
+
+    // Lv6: 종료하기
     private func quit() {
         isQuit = true
         print(MessageConstants.finishGameMessage)
@@ -86,7 +88,6 @@ class BaseballGame {
                 numbers.append(randomNumber)
             }
         }
-        answer = numbers.map { String($0) }
         return numbers.map { String($0) }
     }
 
@@ -112,7 +113,7 @@ class BaseballGame {
     }
 
     // Lv2: 정답 확인을 위한 힌트
-    func checkHint(for input: [String]) -> String {
+    func checkHint(for input: [String], to count: Int) -> String {
 
         var hint = Hint()
         var result = ""
@@ -130,10 +131,9 @@ class BaseballGame {
 
         if hint.strikes == 3 {
             isAnswer = true
+            recordManager.saveCount(count)
             return MessageConstants.correctAnswerMessage
         }
-
-
 
         if hint.strikes == 0 && hint.balls == 0 {
             return MessageConstants.nothingMessage
