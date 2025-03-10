@@ -36,13 +36,14 @@ class BaseballGame {
     }
 
     // Lv1: 1에서 9까지의 서로 다른 임의의 수 3자리 구하기
+    // Lv3: 0에서 9까지로 변경, 맨 앞자리, 중복 제외
     private func makeAnser() -> [String] {
 
         var numbers = [Int]()
 
         while numbers.count < maxLength {
             // 1에서 9까지 랜덤 수 추출
-            let randomNumber = Int.random(in: 1...9)
+            let randomNumber = numbers.isEmpty ? Int.random(in: 1...9) : Int.random(in: 0...9)
 
             // 중복인 경우 추가 안함
             if !numbers.contains(randomNumber) {
