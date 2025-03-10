@@ -23,8 +23,6 @@ class BaseballGame {
         recordManager = RecordManager.shared
     }
 
-
-
     func start() {
         while !isQuit {
             // Lv4: 프로그램 시작시 안내문구 출력
