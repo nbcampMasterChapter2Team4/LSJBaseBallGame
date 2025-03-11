@@ -50,6 +50,7 @@ class BaseballGame {
     private func gameStart() {
         resetGame()
         print(MessageContents.startMessage)
+        
         var tryCount = 0
         
         while !isAnswer {
