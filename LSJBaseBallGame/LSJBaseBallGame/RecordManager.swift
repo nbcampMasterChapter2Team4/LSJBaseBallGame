@@ -10,7 +10,7 @@ import Foundation
 class RecordManager {
     static let shared = RecordManager()
     
-    var tryCountHistory: [Int]
+    private var tryCountHistory: [Int]
     
     private init() {
         tryCountHistory = []
