@@ -26,7 +26,7 @@ class BaseballGame {
     func start() {
         while !isQuit {
             // Lv4: 프로그램 시작시 안내문구 출력
-            print(MessageConstants.welcomMessage)
+            print(MessageContents.welcomMessage)
             let input = Int(readLine()!)!
             switch input {
             case NumberType.gameStart.rawValue:
@@ -36,7 +36,7 @@ class BaseballGame {
             case NumberType.quit.rawValue:
                 quit()
             default:
-                print(MessageConstants.incorrectNumberMessage)
+                print(MessageContents.incorrectNumberMessage)
             }
         }
 
@@ -44,16 +44,16 @@ class BaseballGame {
 
     private func gameStart() {
         resetGame()
-        print(MessageConstants.startMessage)
+        print(MessageContents.startMessage)
         var tryCount = 0
         
         while !isAnswer {
-            print(MessageConstants.inputNumberMessage)
+            print(MessageContents.inputNumberMessage)
             
             let input = readLine()!.map { String($0) }
 
             if checkError(for: input) == .error {
-                print(MessageConstants.incorrectInputMessage)
+                print(MessageContents.incorrectInputMessage)
             } else {
                 tryCount += 1
                 print("\(checkHint(for: input, to: tryCount))\n")
@@ -74,7 +74,7 @@ class BaseballGame {
     // Lv6: 종료하기
     private func quit() {
         isQuit = true
-        print(MessageConstants.finishGameMessage)
+        print(MessageContents.finishGameMessage)
     }
 
     // Lv1: 1에서 9까지의 서로 다른 임의의 수 3자리 구하기
@@ -134,11 +134,11 @@ class BaseballGame {
         if hint.strikes == 3 {
             isAnswer = true
             recordManager.saveCount(count)
-            return MessageConstants.correctAnswerMessage
+            return MessageContents.correctAnswerMessage
         }
 
         if hint.strikes == 0 && hint.balls == 0 {
-            return MessageConstants.nothingMessage
+            return MessageContents.nothingMessage
         } else {
             var result = ""
             result += hint.strikes != 0 ? "\(hint.strikes)스트라이크 " : ""
