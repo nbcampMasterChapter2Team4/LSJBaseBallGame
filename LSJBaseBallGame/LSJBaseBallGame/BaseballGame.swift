@@ -27,8 +27,13 @@ class BaseballGame {
         while !isQuit {
             // Lv4: 프로그램 시작시 안내문구 출력
             print(MessageContents.welcomMessage)
-            let input = Int(readLine()!)!
-            switch input {
+            
+            guard let input = readLine(), let choice = Int(input) else {
+                print(MessageContents.incorrectNumberMessage)
+                continue
+            }
+            
+            switch choice {
             case NumberType.gameStart.rawValue:
                 gameStart()
             case NumberType.history.rawValue:
@@ -99,10 +104,10 @@ class BaseballGame {
     // Lv3: 0 사용 가능
     private func checkError(for input: [String]) -> ErrorType {
 
-        // 세자리 숫자가 아닌 경우
+        // 입력한 데이터가 숫자 외 다른 형식이 포함되어 있는 경우
         let hasNonDigit = !input.joined().allSatisfy { $0.isNumber }
 
-        // 숫자가 중복되어 있는 경우
+        // 숫자가 중복되어 있는 경우, 입력한 데이터가 세자리인지 동시 확인 가능
         let hasDuplicateNumbers = Set(input).count != maxLength
         
         // 0이 사용된 경우
