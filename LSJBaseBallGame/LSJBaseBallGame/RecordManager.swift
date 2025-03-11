@@ -24,6 +24,8 @@ class RecordManager {
     // Lv5: 경기 횟수 출력하기
     func showHistory() {
         print(MessageConstants.showHistoryMessage)
+        
+        // MARK: 게임 기록 없을때 호출한 경우
         if tryCountHistory.isEmpty {
             print(MessageConstants.emtpyHistoryMessage)
         } else {
@@ -32,7 +34,5 @@ class RecordManager {
             }
         }
         print(MessageConstants.lineSpace)
-        
     }
-    
 }

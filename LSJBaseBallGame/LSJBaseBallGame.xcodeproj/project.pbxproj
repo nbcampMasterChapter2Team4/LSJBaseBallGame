@@ -13,6 +13,7 @@
 		869231922D7EAFDC00732D23 /* MessageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869231912D7EAFDC00732D23 /* MessageConstants.swift */; };
 		8692319E2D7EBD9200732D23 /* RecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8692319D2D7EBD9200732D23 /* RecordManager.swift */; };
 		869231A02D7EC2AF00732D23 /* NumberType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8692319F2D7EC2AF00732D23 /* NumberType.swift */; };
+		86EE97B32D7FC9EF0025A430 /* ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86EE97B22D7FC9EF0025A430 /* ErrorType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +36,7 @@
 		869231912D7EAFDC00732D23 /* MessageConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageConstants.swift; sourceTree = "<group>"; };
 		8692319D2D7EBD9200732D23 /* RecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordManager.swift; sourceTree = "<group>"; };
 		8692319F2D7EC2AF00732D23 /* NumberType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberType.swift; sourceTree = "<group>"; };
+		86EE97B22D7FC9EF0025A430 /* ErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 			children = (
 				8692318E2D7EAF0100732D23 /* Hint.swift */,
 				8692319F2D7EC2AF00732D23 /* NumberType.swift */,
+				86EE97B22D7FC9EF0025A430 /* ErrorType.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8692318F2D7EAF0100732D23 /* Hint.swift in Sources */,
+				86EE97B32D7FC9EF0025A430 /* ErrorType.swift in Sources */,
 				8692318B2D7EAEF600732D23 /* BaseballGame.swift in Sources */,
 				8692318C2D7EAEF600732D23 /* main.swift in Sources */,
 				8692319E2D7EBD9200732D23 /* RecordManager.swift in Sources */,

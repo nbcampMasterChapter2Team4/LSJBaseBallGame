@@ -9,11 +9,11 @@ import Foundation
 
 class BaseballGame {
 
-    let maxLength: Int
-    var isAnswer: Bool
-    var isQuit: Bool
-    var answer: [String]
-    let recordManager: RecordManager
+    private let maxLength: Int
+    private var isAnswer: Bool
+    private var isQuit: Bool
+    private var answer: [String]
+    private let recordManager: RecordManager
 
     init() {
         maxLength = 3
@@ -43,21 +43,27 @@ class BaseballGame {
     }
 
     private func gameStart() {
-        answer = makeAnswer()
+        resetGame()
         print(MessageConstants.startMessage)
         var tryCount = 0
-        isAnswer = false
+        
         while !isAnswer {
             print(MessageConstants.inputNumberMessage)
+            
             let input = readLine()!.map { String($0) }
 
-            if checkError(for: input) {
+            if checkError(for: input) == .error {
                 print(MessageConstants.incorrectInputMessage)
             } else {
                 tryCount += 1
                 print("\(checkHint(for: input, to: tryCount))\n")
             }
         }
+    }
+    
+    private func resetGame() {
+        answer = makeAnswer()
+        isAnswer = false
     }
 
     // Lv5: 기록보기
@@ -90,31 +96,29 @@ class BaseballGame {
     }
 
     // Lv2: 올바르지 않은 입력값 체크
-    func checkError(for input: [String]) -> Bool {
+    // Lv3: 0 사용 가능
+    private func checkError(for input: [String]) -> ErrorType {
 
         // 세자리 숫자가 아닌 경우
-        let str = input.joined()
-        if !str.allSatisfy({ $0.isNumber }) {
-            return true
-        }
+        let hasNonDigit = !input.joined().allSatisfy { $0.isNumber }
 
         // 숫자가 중복되어 있는 경우
-        let arrayToSet: Set<Int> = Set(input.map { Int($0)! })
-        if arrayToSet.count != maxLength {
-            return true
-        }
+        let hasDuplicateNumbers = Set(input).count != maxLength
+        
         // 0이 사용된 경우
-        if input.contains("0") {
-            return true
+        // let containsZero = input.contains("0")
+        
+        if hasNonDigit || hasDuplicateNumbers /*|| containsZero*/ {
+            return .error
         }
-        return false
+        
+        return .success
     }
 
     // Lv2: 정답 확인을 위한 힌트
-    func checkHint(for input: [String], to count: Int) -> String {
+    private func checkHint(for input: [String], to count: Int) -> String {
 
         var hint = Hint()
-        var result = ""
 
         for i in 0 ..< maxLength {
             // 스트라이크, 볼 판별기
@@ -136,6 +140,7 @@ class BaseballGame {
         if hint.strikes == 0 && hint.balls == 0 {
             return MessageConstants.nothingMessage
         } else {
+            var result = ""
             result += hint.strikes != 0 ? "\(hint.strikes)스트라이크 " : ""
             result += hint.balls != 0 ? "\(hint.balls)볼" : ""
             return result
