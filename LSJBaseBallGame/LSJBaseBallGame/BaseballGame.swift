@@ -9,11 +9,11 @@ import Foundation
 
 class BaseballGame {
 
-    let maxLength: Int
-    var isAnswer: Bool
-    var isQuit: Bool
-    var answer: [String]
-    let recordManager: RecordManager
+    private let maxLength: Int
+    private var isAnswer: Bool
+    private var isQuit: Bool
+    private var answer: [String]
+    private let recordManager: RecordManager
 
     init() {
         maxLength = 3
@@ -26,7 +26,7 @@ class BaseballGame {
     func start() {
         while !isQuit {
             // Lv4: 프로그램 시작시 안내문구 출력
-            print(MessageConstants.welcomMessage)
+            print(MessageContents.welcomMessage)
             let input = Int(readLine()!)!
             switch input {
             case NumberType.gameStart.rawValue:
@@ -36,28 +36,34 @@ class BaseballGame {
             case NumberType.quit.rawValue:
                 quit()
             default:
-                print(MessageConstants.incorrectNumberMessage)
+                print(MessageContents.incorrectNumberMessage)
             }
         }
 
     }
 
     private func gameStart() {
-        answer = makeAnser()
-        print(MessageConstants.startMessage)
+        resetGame()
+        print(MessageContents.startMessage)
         var tryCount = 0
-        isAnswer = false
+        
         while !isAnswer {
-            print(MessageConstants.inputNumberMessage)
+            print(MessageContents.inputNumberMessage)
+            
             let input = readLine()!.map { String($0) }
 
-            if checkError(for: input) {
+            if checkError(for: input) == .error {
+                print(MessageContents.incorrectInputMessage)
+            } else {
                 tryCount += 1
                 print("\(checkHint(for: input, to: tryCount))\n")
-            } else {
-                print(MessageConstants.incorrectInputMessage)
             }
         }
+    }
+    
+    private func resetGame() {
+        answer = makeAnswer()
+        isAnswer = false
     }
 
     // Lv5: 기록보기
@@ -68,12 +74,12 @@ class BaseballGame {
     // Lv6: 종료하기
     private func quit() {
         isQuit = true
-        print(MessageConstants.finishGameMessage)
+        print(MessageContents.finishGameMessage)
     }
 
     // Lv1: 1에서 9까지의 서로 다른 임의의 수 3자리 구하기
     // Lv3: 0에서 9까지로 변경, 맨 앞자리, 중복 제외
-    private func makeAnser() -> [String] {
+    private func makeAnswer() -> [String] {
 
         var numbers = [Int]()
 
@@ -90,31 +96,29 @@ class BaseballGame {
     }
 
     // Lv2: 올바르지 않은 입력값 체크
-    func checkError(for input: [String]) -> Bool {
+    // Lv3: 0 사용 가능
+    private func checkError(for input: [String]) -> ErrorType {
 
         // 세자리 숫자가 아닌 경우
-        let str = input.joined()
-        if !str.allSatisfy({ $0.isNumber }) {
-            return false
-        }
+        let hasNonDigit = !input.joined().allSatisfy { $0.isNumber }
 
         // 숫자가 중복되어 있는 경우
-        let arrayToSet: Set<Int> = Set(input.map { Int($0)! })
-        if arrayToSet.count != maxLength {
-            return false
-        }
+        let hasDuplicateNumbers = Set(input).count != maxLength
+        
         // 0이 사용된 경우
-        if input.contains("0") {
-            return false
+        // let containsZero = input.contains("0")
+        
+        if hasNonDigit || hasDuplicateNumbers /*|| containsZero*/ {
+            return .error
         }
-        return true
+        
+        return .success
     }
 
     // Lv2: 정답 확인을 위한 힌트
-    func checkHint(for input: [String], to count: Int) -> String {
+    private func checkHint(for input: [String], to count: Int) -> String {
 
         var hint = Hint()
-        var result = ""
 
         for i in 0 ..< maxLength {
             // 스트라이크, 볼 판별기
@@ -130,12 +134,13 @@ class BaseballGame {
         if hint.strikes == 3 {
             isAnswer = true
             recordManager.saveCount(count)
-            return MessageConstants.correctAnswerMessage
+            return MessageContents.correctAnswerMessage
         }
 
         if hint.strikes == 0 && hint.balls == 0 {
-            return MessageConstants.nothingMessage
+            return MessageContents.nothingMessage
         } else {
+            var result = ""
             result += hint.strikes != 0 ? "\(hint.strikes)스트라이크 " : ""
             result += hint.balls != 0 ? "\(hint.balls)볼" : ""
             return result

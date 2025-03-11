@@ -23,16 +23,16 @@ class RecordManager {
     
     // Lv5: 경기 횟수 출력하기
     func showHistory() {
-        print(MessageConstants.showHistoryMessage)
+        print(MessageContents.showHistoryMessage)
+        
+        // MARK: 게임 기록 없을때 호출한 경우
         if tryCountHistory.isEmpty {
-            print(MessageConstants.emtpyHistoryMessage)
+            print(MessageContents.emtpyHistoryMessage)
         } else {
             for (i,history) in tryCountHistory.enumerated() {
                 print("\(i+1)번째 게임 : 시도 횟수 - \(history)")
             }
         }
-        print(MessageConstants.lineSpace)
-        
+        print(MessageContents.lineSpace)
     }
-    
 }
