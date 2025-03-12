@@ -56,13 +56,14 @@ class BaseballGame {
         while !isAnswer {
             print(MessageContents.inputNumberMessage)
             
-            let input = readLine()!.map { String($0) }
-
-            if checkError(for: input) == .error {
-                print(MessageContents.incorrectInputMessage)
-            } else {
-                tryCount += 1
-                print("\(checkHint(for: input, to: tryCount))\n")
+            if let line = readLine() {
+                let input = line.compactMap { String($0) }
+                if checkError(for: input) == .error {
+                    print(MessageContents.incorrectInputMessage)
+                } else {
+                    tryCount += 1
+                    print("\(checkHint(for: input, to: tryCount))\n")
+                }
             }
         }
     }
