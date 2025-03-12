@@ -131,25 +131,25 @@ class BaseballGame {
             // 스트라이크, 볼 판별기
             if answer.contains(input[i]) {
                 if input[i] == answer[i] {
-                    hint.strikes += 1
+                    hint.strikeCount += 1
                 } else {
-                    hint.balls += 1
+                    hint.ballCount += 1
                 }
             }
         }
 
-        if hint.strikes == 3 {
+        if hint.strikeCount == 3 {
             isAnswer = true
             recordManager.saveCount(count)
             return MessageContents.correctAnswerMessage
         }
 
-        if hint.strikes == 0 && hint.balls == 0 {
+        if hint.strikeCount == 0 && hint.ballCount == 0 {
             return MessageContents.nothingMessage
         } else {
             var result = ""
-            result += hint.strikes != 0 ? "\(hint.strikes)스트라이크 " : ""
-            result += hint.balls != 0 ? "\(hint.balls)볼" : ""
+            result += hint.strikeCount != 0 ? "\(hint.strikeCount)스트라이크 " : ""
+            result += hint.ballCount != 0 ? "\(hint.ballCount)볼" : ""
             return result
         }
     }
