@@ -8,11 +8,11 @@
 import Foundation
 
 struct Hint {
-    var strikes: Int
-    var balls: Int
+    var strikeCount: Int
+    var ballCount: Int
 
     init() {
-        self.strikes = 0
-        self.balls = 0
+        self.strikeCount = 0
+        self.ballCount = 0
     }
 }

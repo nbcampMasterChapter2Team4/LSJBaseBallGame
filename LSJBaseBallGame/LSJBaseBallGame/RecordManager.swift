@@ -27,7 +27,7 @@ class RecordManager {
 
         // MARK: 게임 기록 없을때 호출한 경우
         if tryCountHistory.isEmpty {
-            print(MessageContents.emtpyHistoryMessage)
+            print(MessageContents.emptyHistoryMessage)
         } else {
             for (index, tryCount) in tryCountHistory.enumerated() {
                 print("\(index + 1)번째 게임 : 시도 횟수 - \(tryCount)")
