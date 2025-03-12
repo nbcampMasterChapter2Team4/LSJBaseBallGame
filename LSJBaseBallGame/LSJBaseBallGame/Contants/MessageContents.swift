@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MessageContents {
+struct MessageContents {
     static let welcomMessage = "환영합니다! 원하시는 번호를 입력해주세요\n1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기"
     static let startMessage = "\n< 게임을 시작합니다 >"
     static let inputNumberMessage = "숫자를 입력하세요"
@@ -17,6 +17,6 @@ enum MessageContents {
     static let finishGameMessage = "\n< 숫자 야구 게임을 종료합니다 >"
     static let incorrectNumberMessage = "\n올바른 숫자를 입력해주세요!"
     static let showHistoryMessage = "\n< 게임 기록 보기 > "
-    static let emtpyHistoryMessage = "게임을 진행한 기록이 없습니다!"
+    static let emptyHistoryMessage = "게임을 진행한 기록이 없습니다!"
     static let lineSpace = "\n"
 }
