@@ -30,20 +30,18 @@ class BaseballGame {
             // Lv4: 프로그램 시작시 안내문구 출력
             print(MessageContents.welcomMessage)
 
-            guard let input = readLine(), let choice = Int(input) else {
+            guard let input = readLine(), let intInput = Int(input), let choice = NumberType(rawValue: intInput) else {
                 print(MessageContents.incorrectNumberMessage)
                 continue
             }
 
             switch choice {
-            case NumberType.gameStart.rawValue:
+            case .gameStart:
                 gameStart()
-            case NumberType.history.rawValue:
+            case .history:
                 showHistory()
-            case NumberType.quit.rawValue:
+            case .quit:
                 quit()
-            default:
-                print(MessageContents.incorrectNumberMessage)
             }
         }
 
