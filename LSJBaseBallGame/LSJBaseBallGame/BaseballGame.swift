@@ -14,6 +14,7 @@ class BaseballGame {
     private var isQuit: Bool
     private var answer: [String]
     private let recordManager: RecordManager
+    private var previousTryAnser: Set<String>
 
     init() {
         maxLength = 3
@@ -21,18 +22,19 @@ class BaseballGame {
         answer = []
         isQuit = false
         recordManager = RecordManager.shared
+        previousTryAnser = []
     }
 
     func start() {
         while !isQuit {
             // Lv4: 프로그램 시작시 안내문구 출력
             print(MessageContents.welcomMessage)
-            
+
             guard let input = readLine(), let choice = Int(input) else {
                 print(MessageContents.incorrectNumberMessage)
                 continue
             }
-            
+
             switch choice {
             case NumberType.gameStart.rawValue:
                 gameStart()
@@ -50,24 +52,32 @@ class BaseballGame {
     private func gameStart() {
         resetGame()
         print(MessageContents.startMessage)
-        
+
         var tryCount = 0
-        
+
         while !isAnswer {
             print(MessageContents.inputNumberMessage)
-            
+
             if let line = readLine() {
                 let input = line.compactMap { String($0) }
+                
+                // MARK: 이전에 입력한 기록이 있는 경우 추가 안내문 출력
+                if previousTryAnser.contains(line) {
+                    print(MessageContents.previousInputMessage)
+                }
+
                 if checkError(for: input) == .error {
                     print(MessageContents.incorrectInputMessage)
                 } else {
                     tryCount += 1
+                    previousTryAnser.insert(line)
                     print("\(checkHint(for: input, to: tryCount))\n")
                 }
             }
         }
     }
-    
+
+
     private func resetGame() {
         answer = makeAnswer()
         isAnswer = false
@@ -111,14 +121,14 @@ class BaseballGame {
 
         // 숫자가 중복되어 있는 경우, 입력한 데이터가 세자리인지 동시 확인 가능
         let hasDuplicateNumbers = Set(input).count != maxLength
-        
+
         // 0이 사용된 경우
         // let containsZero = input.contains("0")
-        
+
         if hasNonDigit || hasDuplicateNumbers /*|| containsZero*/ {
             return .error
         }
-        
+
         return .success
     }
 
@@ -138,18 +148,18 @@ class BaseballGame {
             }
         }
 
-        if hint.strikeCount == 3 {
+        if hint.isThreeStrike {
             isAnswer = true
             recordManager.saveCount(count)
             return MessageContents.correctAnswerMessage
         }
 
-        if hint.strikeCount == 0 && hint.ballCount == 0 {
+        if hint.isZeroCount {
             return MessageContents.nothingMessage
         } else {
             var result = ""
-            result += hint.strikeCount != 0 ? "\(hint.strikeCount)스트라이크 " : ""
-            result += hint.ballCount != 0 ? "\(hint.ballCount)볼" : ""
+            result += hint.strikeCount != .zero ? "\(hint.strikeCount)스트라이크 " : ""
+            result += hint.ballCount != .zero ? "\(hint.ballCount)볼" : ""
             return result
         }
     }

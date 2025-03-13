@@ -18,5 +18,6 @@ struct MessageContents {
     static let incorrectNumberMessage = "\n올바른 숫자를 입력해주세요!"
     static let showHistoryMessage = "\n< 게임 기록 보기 > "
     static let emptyHistoryMessage = "게임을 진행한 기록이 없습니다!"
+    static let previousInputMessage = "이미 입력한 숫자입니다.\n"
     static let lineSpace = "\n"
 }

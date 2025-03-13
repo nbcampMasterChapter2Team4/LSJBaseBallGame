@@ -69,7 +69,7 @@
 		8692318A2D7EAEF600732D23 /* LSJBaseBallGame */ = {
 			isa = PBXGroup;
 			children = (
-				869231902D7EAFCA00732D23 /* Contants */,
+				869231902D7EAFCA00732D23 /* Contents */,
 				8692318D2D7EAEF900732D23 /* Data */,
 				869231882D7EAEF600732D23 /* BaseballGame.swift */,
 				8692319D2D7EBD9200732D23 /* RecordManager.swift */,
@@ -88,12 +88,12 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		869231902D7EAFCA00732D23 /* Contants */ = {
+		869231902D7EAFCA00732D23 /* Contents */ = {
 			isa = PBXGroup;
 			children = (
 				869231912D7EAFDC00732D23 /* MessageContents.swift */,
 			);
-			path = Contants;
+			path = Contents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

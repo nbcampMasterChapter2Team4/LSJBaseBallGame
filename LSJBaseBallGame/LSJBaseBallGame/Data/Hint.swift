@@ -12,7 +12,15 @@ struct Hint {
     var ballCount: Int
 
     init() {
-        self.strikeCount = 0
-        self.ballCount = 0
+        self.strikeCount = .zero
+        self.ballCount = .zero
+    }
+    
+    var isThreeStrike: Bool {
+        return strikeCount == 3
+    }
+    
+    var isZeroCount: Bool {
+        return strikeCount == .zero && ballCount == .zero
     }
 }
