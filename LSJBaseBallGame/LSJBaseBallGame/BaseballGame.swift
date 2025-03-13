@@ -138,18 +138,18 @@ class BaseballGame {
             }
         }
 
-        if hint.strikeCount == 3 {
+        if hint.isThreeStrike {
             isAnswer = true
             recordManager.saveCount(count)
             return MessageContents.correctAnswerMessage
         }
 
-        if hint.strikeCount == 0 && hint.ballCount == 0 {
+        if hint.isZeroCount {
             return MessageContents.nothingMessage
         } else {
             var result = ""
-            result += hint.strikeCount != 0 ? "\(hint.strikeCount)스트라이크 " : ""
-            result += hint.ballCount != 0 ? "\(hint.ballCount)볼" : ""
+            result += hint.strikeCount != .zero ? "\(hint.strikeCount)스트라이크 " : ""
+            result += hint.ballCount != .zero ? "\(hint.ballCount)볼" : ""
             return result
         }
     }
